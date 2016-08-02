@@ -54,16 +54,23 @@ def load_movies():
 
         title = title.split(" (")
         title = title[0]
+        title = title.decode("latin-1")
         if released_str:
-
+            """ convert the string date into a datetime object (strptime) """
+            """ conversely...strftime would convert the object back to string format """
             released_at = datetime.datetime.strptime(released_str, "%d-%b-%Y")
         else:
+            """ if no date, set the value to 'None' """
             released_at = None
         
+        """ create movie instance from class Movie """
+
         movie = Movie(movie_id=movie_id, title=title, released_at=released_at,imdb_url=imdb_url)
 
+        """ add each instance to the database """
         db.session.add(movie)
 
+    """ commit all the entries into the database """
     db.session.commit()
 
             
@@ -75,8 +82,19 @@ def load_ratings():
     print "Ratings"
     Rating.query.delete()
 
+    for row in open("seed_data/u.data"):
+        row = row.strip()
+        row = row.split("\t")
+        """ ratings_id is autoincremented and as such we need not add it here """
+        user_id = row[0]
+        movie_id = row[1]
+        score = row[2]
 
+        rating = Rating(user_id=user_id, movie_id=movie_id, score=score)
 
+        db.session.add(rating)
+
+    db.session.commit()        
 
 
 def set_val_user_id():
