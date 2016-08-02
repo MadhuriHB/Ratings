@@ -17,9 +17,15 @@ class User(db.Model):
 
     __tablename__ = "users"
 
+    def __repr__(self):
+        """ Provide helpful representation when printed """
+
+        return "<User user_id=%s email=%s>" %(self.user_id, 
+                                              self.email)
+
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    email = db.Column(db.String(64), nullable=True)
-    password = db.Column(db.String(64), nullable=True)
+    email = db.Column(db.String(200), nullable=True)
+    password = db.Column(db.String(200), nullable=True)
     age = db.Column(db.Integer, nullable=True)
     zipcode = db.Column(db.String(15), nullable=True)
 
@@ -28,15 +34,31 @@ class Movie(db.Model):
 
     __tablename__ = "movies"
 
+    def __repr__(self):
+        """ Provide helpful representation when printed """
+
+        return "<User movie_id=%s title=%s>" %(self.movie_id, 
+                                              self.title)
+
+
     movie_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    title = db.Column(db.String(64), nullable=False)
-    released_at = db.Column(db.DateTime, nullable=False)
-    imdb_url = db.Column(db.String(100), nullable=True)
+    title = db.Column(db.Text, nullable=False)
+    released_at = db.Column(db.DateTime, nullable=True)
+    imdb_url = db.Column(db.Text, nullable=True)
+
+
 
 class Rating(db.Model):
     """ movie ratings """
 
     __tablename__ = "ratings"
+
+    def __repr__(self):
+        """ Provide helpful representation when printed """
+
+        return "<User rating_id=%s score=%s>" %(self.rating_id, 
+                                              self.score)
+
 
     rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     movie_id = db.Column(db.Integer, nullable=False)
