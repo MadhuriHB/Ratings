@@ -39,6 +39,24 @@ def user_list():
     users = User.query.all()
     return render_template("user_list.html", users=users)
 
+@app.route("/register_form", methods=["GET"])
+def register_form():
+
+    return render_template("register_form.html")
+
+@app.route("/register", methods=["POST"])
+def register_process():
+    username = request.form.get("user_name")
+    password = request.form.get("password")
+    users = User.query.filter_by(password=password).all()
+    
+
+
+
+
+
+    return redirect("/")
+
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
