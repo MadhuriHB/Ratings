@@ -37,7 +37,7 @@ class Movie(db.Model):
     def __repr__(self):
         """ Provide helpful representation when printed """
 
-        return "<User movie_id=%s title=%s>" %(self.movie_id, 
+        return "<Movie movie_id=%s title=%s>" %(self.movie_id, 
                                               self.title)
 
 

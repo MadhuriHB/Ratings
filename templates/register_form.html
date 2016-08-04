@@ -1,15 +1,24 @@
-<!doctype html>
-<html>
-<head>
-  <title>Registration Form</title>
-</head>
 
-<body action="/register" method="POST">
-    Please enter your username: <input type="text" name="user_name"></input><br>
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+
+<form action="/processed" method="POST">
+    Please enter your email:    <input type="text" name="email"></input><br>
     Please enter your password: <input type="text" name="password"></input><br>
+    Please enter your age: <input type="age" name="age"></input><br>
+    Please enter your zipcode: <input type="zipcode" name="zipcode"></input><br>
+
     <input type="submit" value="submit" id="submit_login"></input><br>
 
 
 
-</body>
-</html>
+</form>
+
+
+
+{% endblock %}

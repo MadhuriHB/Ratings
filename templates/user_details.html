@@ -1,0 +1,33 @@
+
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2>User Details</h2>
+    <!--get all the ratings associated with the particular user_id-->
+    <!-- ratings = Rating.query.get(user.user_id) -->
+    <!-- get all the movies that the user rated  -->
+    <!--this presents as an list of movie objects -->
+    <!-- movies = ratings.movie -->
+    
+
+    <ul>
+          <li>
+          Email:      {{ user.email }} <br>
+          User ID:    {{ user.user_id }} <br>
+          Age:        {{ user.age }}<br>
+          Zipcode:    {{ user.zipcode }}<br>
+
+          
+
+          {% for rating in ratings %}
+            Movie title: {{ rating.movie.title }} &nbsp; &nbsp;  Movie score: {{rating.score }} <br>
+          {% endfor %}
+        
+         
+          </li>
+
+    </ul>
+
+{% endblock %}
