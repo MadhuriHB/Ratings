@@ -105,26 +105,47 @@ def logout_process():
  
 @app.route("/user/<int:user_id>")
 def show_user_details(user_id):
-    movie_dict = {}
     
     my_user = User.query.get(user_id)
     
     ratings = my_user.ratings
     
-    for rating in ratings:
-       
-        movie = rating.movie
-        score = rating.score
-        movie_dict[movie] = score
-
-
-    print movie_list
     return render_template("user_details.html", user=my_user, ratings=ratings)
+  
 
+@app.route("/movies/<int:movie_id>", methods=["GET"])
+def show_movie_details(movie_id):
+    """ a particular movie, including a list of all the ratings that movie has received. """ 
+
+    my_movie = Movie.query.get(movie_id)
     
+    ratings = my_movie.ratings
+    
+    return render_template("movie_details.html", movie=my_movie, ratings=ratings)
 
 
+@app.route("/rate_movie", methods=["POST"])
+def user_rating():
+    """ logged in user selects a movie and then enters a rating for it """ 
 
+
+    logged_in_user = session["user_id"]
+
+    user_rating = int(request.form.get("user_rating"))
+    movie_id = request.form["movie_id"]
+
+    if logged_in_user: 
+
+        new_rating = Rating(movie_id=movie_id, user_id=logged_in_user, score=user_rating)
+        db.session.add(new_rating)
+        db.session.commit()
+        flash("Logged the new rating for this movie.")
+
+    else:
+
+        flash("User is not logged in. Please log in and then rate the movie :) ")
+       
+    return redirect("/movies/" + movie_id)
 
 
 if __name__ == "__main__":

@@ -27,6 +27,7 @@ def load_users():
         user_id, age, gender, occupation, zipcode = row.split("|")
 
         user = User(user_id=user_id,
+                    
                     age=age,
                     zipcode=zipcode)
 

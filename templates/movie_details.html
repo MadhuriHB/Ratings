@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2> Movie Details! </h2>
+    <!--get all the ratings associated with the particular movie_id-->
+    <!-- ratings = Rating.query.get(movie.movie_id) -->
+    <!-- get all the movies that the movie rated  -->
+    <!--this presents as an list of movie objects -->
+    <!-- movies = ratings.movie -->
+
+    <form action="/rate_movie" method="POST">
+
+    Please enter your rating for this movie: <br>
+    <input type="text" name="user_rating"></input> <br><br>
+    <input type="hidden" name="movie_id" value="{{movie.movie_id}}"></input> <br><br>
+    <input type="submit" name="submit"></input> <br><br>
+
+    </form>
+
+          {% for rating in ratings %}
+            Movie title: {{ rating.movie.title }} &nbsp; &nbsp;  Movie score: {{rating.score }} <br>
+          {% endfor %}
+
+{% endblock %}
+
+
+
